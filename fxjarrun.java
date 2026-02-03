@@ -13,6 +13,12 @@ public class fxjarrun
 
     public static void main(String[] args) throws IOException
     {
+        if (args.length > 1)
+        {
+            System.out.print("Error: this command only takes either zero or one parameter");
+            System.exit(1);
+        }
+
         var pb = new ProcessBuilder
         (
             "java",
@@ -22,6 +28,22 @@ public class fxjarrun
             "-cp", JAR_NAME + ";" + JAVAFX_LIB + "\\*",
             MAIN_CLASS
         );
+
+        if (args.length == 1)
+        {
+            if (args[0].equals("-o"))
+            {
+                String cmd = String.join(" ", pb.command());
+                System.out.println(cmd);
+                System.exit(0);
+            }
+
+            else
+            {
+                System.out.println("Error: invalid command parameter '" + args[0] + "'");
+                System.exit(1);
+            }
+        }
 
         Process p = null;
 
