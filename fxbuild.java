@@ -29,7 +29,7 @@ public class fxbuild
         }
         catch (Exception e)
         {
-            System.err.println("\n❌ ERROR: " + e.getMessage());
+            System.err.println("\nError: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
@@ -47,7 +47,7 @@ public class fxbuild
 
     private static void validateEnvironment() throws Exception
     {
-        System.out.println("🔍 Validating enviroment...\n");
+        System.out.println("Validating enviroment...\n");
 
         if (JAVA_HOME == null || JAVA_HOME.isBlank())
         { throw new Exception("JAVA_HOME not set! Configure the enviroment variable"); }
@@ -56,15 +56,15 @@ public class fxbuild
         if (!Files.exists(javaHomePath))
         { throw new Exception("Invalid JAVA_HOME: " + JAVA_HOME); }
 
-        System.out.println("   ✓ JAVA_HOME: " + JAVA_HOME);
+        System.out.println("   JAVA_HOME: " + JAVA_HOME);
 
         String javaVersion = System.getProperty("java.version");
-        System.out.println("   ✓ Java version: " + javaVersion);
+        System.out.println("   Java version: " + javaVersion);
 
         try
         {
             executeCommand("mvn --version", false);
-            System.out.println("   ✓ Maven available");
+            System.out.println("   Maven available");
         }
 
         catch (Exception e)
@@ -74,20 +74,20 @@ public class fxbuild
         Path pomFile = Path.of(PROJECT_DIR, "pom.xml");
         if (!Files.exists(pomFile))
         { throw new Exception("pom.xml not found in: " + PROJECT_DIR); }
-        System.out.println("   ✓ found pom.xml");
+        System.out.println("   found pom.xml");
 
-        System.out.println("\n✅ Enviroment validated!\n");
+        System.out.println("\nEnviroment validated!\n");
     }
 
     private static void cleanBuildDirectory() throws Exception
     {
-        System.out.println("🧹 Cleaning build directory...\n");
+        System.out.println("Cleaning build directory...\n");
 
         Path buildPath = Path.of(BUILD_DIR);
         if (Files.exists(buildPath))
         {
             deleteDirectory(buildPath);
-            System.out.println("   ✓ Existing directory removed");
+            System.out.println("   Existing directory removed");
         }
 
         System.out.println();
@@ -95,7 +95,7 @@ public class fxbuild
 
     private static void buildWithMaven() throws Exception
     {
-        System.out.println("📦 Maven build...\n");
+        System.out.println("Maven build...\n");
 
         executeCommand("mvn clean package -DskipTests", true);
 
@@ -108,7 +108,7 @@ public class fxbuild
         if (jarFile.isEmpty())
         { throw new Exception("Failed to create jar"); }
 
-        System.out.println("\n✅ jar created: " + jarFile.get().getFileName());
+        System.out.println("\njar created: " + jarFile.get().getFileName());
         System.out.println("   Size: " + Files.size(jarFile.get()) / 1024 + " KB\n");
     }
 
@@ -117,7 +117,7 @@ public class fxbuild
         System.out.println("""
             
             ╔═══════════════════════════════════════════╗
-            ║        ✅ BUILD SUCCESSFUL! ✅           ║ 
+            ║            BUILD SUCCESSFUL!              ║ 
             ╚═══════════════════════════════════════════╝
             
             """);
