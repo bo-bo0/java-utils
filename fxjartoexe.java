@@ -11,10 +11,10 @@ import java.util.stream.*;
  * - Java 25+
  * - Jpackage
  * - JavaFX jmods
+ * - WiX toolset (for windows installers)
  */
 public class fxjartoexe 
 {
-
     private static final String CONFIG_FILE = "fxjartoexe.properties";
     private static Properties config = new Properties();
 
@@ -41,7 +41,7 @@ public class fxjartoexe
             executeConversion();
 
             System.out.println("\nCoversion succesful!");
-            System.out.println("The exe file can be found in: " + config.getProperty("output.dir"));
+            System.out.println("The executable file can be found in: " + config.getProperty("output.dir"));
 
         } 
         catch (Exception e) 
@@ -83,6 +83,7 @@ public class fxjartoexe
         config.setProperty("main.class", ""); 
         config.setProperty("javafx.jmods.path", System.getProperty("java.home") + "/jmods");
         config.setProperty("output.dir", "dist");
+        config.setProperty("build.type", "app-image");
         config.setProperty("icon.path", ""); 
         config.setProperty("vendor", "");
         config.setProperty("description", "");
@@ -211,7 +212,7 @@ public class fxjartoexe
         command.add(outputDir);
 
         command.add("--type");
-        command.add("app-image");
+        command.add(config.getProperty("build.type"));
 
         command.add("--module-path");
         command.add(config.getProperty("javafx.jmods.path"));
