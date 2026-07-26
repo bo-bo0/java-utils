@@ -192,7 +192,6 @@ public class fxjartoexe
         List<String> command = new ArrayList<>();
         command.add("jpackage");
 
-        // Parametri base
         command.add("--input");
         command.add(Paths.get(config.getProperty("jar.path")).getParent().toString());
 
